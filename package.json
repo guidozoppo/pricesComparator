@@ -1,0 +1,16 @@
+{
+  "name": "comparador-precios-pdf-excel",
+  "version": "1.0.0",
+  "description": "Compara precios de artículos entre un PDF de proveedor y un Excel del local.",
+  "main": "comparar.js",
+  "scripts": {
+    "comparar": "node comparar.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.2",
+    "pdf-parse": "^1.1.1",
+    "xlsx": "^0.18.5"
+  }
+}

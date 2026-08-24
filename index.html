@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Comparador de Precios</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__inner">
+            <h1 class="header__title">Comparador de Precios</h1>
+            <nav class="nav">
+                <a class="nav__link nav__link--active" href="#">Casa Jonas</a>
+                <a class="nav__link" href="#">Casa Jonas</a>
+                <a class="nav__link" href="#">Casa Jonas</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="card">
+            <div class="card__header">
+                <h2 class="card__title">Subir archivos</h2>
+                <p class="card__subtitle">
+                    Cargá el PDF del proveedor y el Excel con los precios del negocio para generar la comparación.
+                </p>
+            </div>
+
+            <div class="upload-grid">
+                <div class="upload-field">
+                    <label class="upload-field__label" for="pdfProveedor">PDF del proveedor</label>
+                    <label class="upload-box" for="pdfProveedor">
+                        <span class="upload-box__icon" aria-hidden="true">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <span class="upload-box__text">Seleccioná un archivo PDF</span>
+                        <span class="upload-box__hint">Formato .pdf</span>
+                        <span class="upload-box__filename" id="pdfFileName">Ningún archivo seleccionado</span>
+                    </label>
+                    <input class="upload-field__input" type="file" name="pdfProveedor" id="pdfProveedor" accept=".pdf">
+                </div>
+
+                <div class="upload-field">
+                    <label class="upload-field__label" for="excelNegocio">Excel del negocio</label>
+                    <label class="upload-box" for="excelNegocio">
+                        <span class="upload-box__icon" aria-hidden="true">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                                <path d="M14 2v6h6M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span class="upload-box__text">Seleccioná un archivo Excel</span>
+                        <span class="upload-box__hint">Formatos .xls, .xlsx</span>
+                        <span class="upload-box__filename" id="excelFileName">Ningún archivo seleccionado</span>
+                    </label>
+                    <input class="upload-field__input" type="file" name="excelNegocio" id="excelNegocio" accept=".xls,.xlsx">
+                </div>
+            </div>
+
+            <div class="card__actions">
+                <button class="btn btn--primary" id="compararBtn" type="button">
+                    <span class="btn__label">Comparar</span>
+                    <span class="btn__loader" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <p class="message message--hidden" id="statusMessage" role="status" aria-live="polite"></p>
+        </section>
+    </main>
+</body>
+<script src="app.js"></script>
+
+</html>
