@@ -3,3 +3,5 @@ dist/
 resultados/
 archivos/
 temp/
+.vercel
+.env*
