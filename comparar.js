@@ -213,6 +213,7 @@ async function leerPDF(articulosExcel, pdfPath = PDF_PATH) {
 
     const preciosPDF = new Map();
     const ocurrencias = new Map();
+    const descripcionesPDF = new Map();
 
     for (const articuloOriginal of articulosExcel) {
         const articulo = normalizarArticulo(articuloOriginal);
@@ -238,6 +239,11 @@ async function leerPDF(articulosExcel, pdfPath = PDF_PATH) {
                 continue;
             }
 
+            const descripcion = linea
+                .substring(articulo.length)
+                .split("$")[0]
+                .trim();
+
             const precioSinIVA = precios[0]
                 .replace("$", "")
                 .trim();
@@ -246,6 +252,13 @@ async function leerPDF(articulosExcel, pdfPath = PDF_PATH) {
 
             if (precio !== null) {
                 preciosEncontrados.push(precio);
+
+                if (!descripcionesPDF.has(articulo)) {
+                    descripcionesPDF.set(
+                        articulo,
+                        descripcion
+                    );
+                }
             }
         }
 
@@ -263,7 +276,8 @@ async function leerPDF(articulosExcel, pdfPath = PDF_PATH) {
 
     return {
         preciosPDF,
-        ocurrencias
+        ocurrencias,
+        descripcionesPDF
     };
 }
 
@@ -347,6 +361,7 @@ function comparar(datosPDF, datosExcel) {
         );
 
         const precioPDF = datosPDF.preciosPDF.get(articulo);
+        const descripcion = datosPDF.descripcionesPDF.get(articulo) || "";
 
         let precioCalculado = null;
         let diferencia = null;
@@ -373,13 +388,14 @@ function comparar(datosPDF, datosExcel) {
 
         resultados.push({
             "Articulo": articuloOriginal,
+            "Nombre": descripcion,
             "Precio PDF sin IVA": precioPDF !== undefined
                 ? precioPDF / 100
                 : "",
             "Precio calculado (x2)": precioCalculado !== null
                 ? precioCalculado / 100
                 : "",
-            "Precio Final Excel": precioExcel !== null
+            "Precio para la venta": precioExcel !== null
                 ? precioExcel / 100
                 : "",
             "Diferencia": diferencia !== null
@@ -411,8 +427,13 @@ function generarExcel(resultados, resumen, outputPath = OUTPUT_PATH) {
 
     const hojaResultados = XLSX.utils.json_to_sheet(resultados);
 
+    hojaResultados["!autofilter"] = {
+        ref: hojaResultados["!ref"]
+    };
+
     hojaResultados["!cols"] = [
         { wch: 16 },
+        { wch: 60 },
         { wch: 20 },
         { wch: 23 },
         { wch: 20 },
