@@ -1,3 +1,8 @@
+import { leerPDF } from "./src/comparador/pdf.js";
+import { leerExcel } from "./src/comparador/excel.js";
+import { comparar } from "./src/comparador/comparador.js";
+import { generarExcel } from "./src/comparador/excelExport.js";
+
 const pdfInput = document.getElementById("pdfProveedor");
 const excelInput = document.getElementById("excelNegocio");
 const pdfFileName = document.getElementById("pdfFileName");
@@ -43,41 +48,56 @@ boton.addEventListener("click", async () => {
     const excelFile = excelInput.files[0];
 
     if (!pdfFile || !excelFile) {
-        mostrarMensaje("Seleccioná el PDF del proveedor y el Excel del negocio.", "error");
+        mostrarMensaje(
+            "Seleccioná el PDF del proveedor y el Excel del negocio.",
+            "error"
+        );
         return;
     }
 
-    const formData = new FormData();
-    formData.append("pdf", pdfFile);
-    formData.append("excel", excelFile);
-
     boton.disabled = true;
     boton.classList.add("btn--loading");
-    boton.querySelector(".btn__label").textContent = "Comparando";
+    boton.querySelector(".btn__label").textContent = "Leyendo PDF";
     ocultarMensaje();
 
     try {
-        const response = await fetch("/comparar", {
-            method: "POST",
-            body: formData
-        });
+        const resultadoExcel = await leerExcel(excelFile);
 
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.error || "Error al comparar los archivos.");
-        }
+        const articulosExcel = resultadoExcel.filas.map(
+            fila => fila[resultadoExcel.columnaArticulo]
+        );
 
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        const enlace = document.createElement("a");
-        enlace.href = url;
-        enlace.download = "resultado-comparacion.xlsx";
-        enlace.click();
-        URL.revokeObjectURL(url);
+        const resultadoPDF = await leerPDF(
+            articulosExcel,
+            pdfFile
+        );
 
-        mostrarMensaje("Comparación completada. Se descargó el archivo Excel con los resultados.", "success");
+        const resultadoComparacion = comparar(
+            resultadoPDF,
+            resultadoExcel
+        );
+
+        console.log("========================================");
+        console.log("RESULTADO DE COMPARACIÓN");
+        console.log("========================================");
+
+        console.log("Resumen:", resultadoComparacion.resumen);
+
+        console.log("Resultados:", resultadoComparacion.resultados);
+
+        console.log("========================================");
+
+        generarExcel(
+            resultadoComparacion.resultados,
+            resultadoComparacion.resumen
+        );
     } catch (error) {
-        mostrarMensaje(error.message, "error");
+        console.error(error);
+
+        mostrarMensaje(
+            `Error al leer el PDF: ${error.message}`,
+            "error"
+        );
     } finally {
         boton.disabled = false;
         boton.classList.remove("btn--loading");
