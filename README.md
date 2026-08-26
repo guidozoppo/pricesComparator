@@ -68,3 +68,4 @@ El programa genera un Excel con dos hojas:
 
 - `Comparación`
 - `Resumen`
+Aplicación web para comparar precios entre un PDF de proveedor y un archivo Excel del negocio.
