@@ -1,4 +1,5 @@
 node_modules/
+dist/
 resultados/
-precios1.jpeg
-precios2.jpeg
+archivos/
+temp/
