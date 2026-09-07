@@ -1,7 +1,7 @@
-import { leerPDF } from "./src/comparador/pdf.js";
-import { leerExcel } from "./src/comparador/excel.js";
-import { comparar } from "./src/comparador/comparador.js";
-import { generarExcel } from "./src/comparador/excelExport.js";
+import { leerPDF } from "./src/casa-jonas/comparador/pdf.js";
+import { leerExcel } from "./src/casa-jonas/comparador/excel.js";
+import { comparar } from "./src/casa-jonas/comparador/comparador.js";
+import { generarExcel } from "./src/casa-jonas/comparador/excelExport.js";
 
 const pdfInput = document.getElementById("pdfProveedor");
 const excelInput = document.getElementById("excelNegocio");
