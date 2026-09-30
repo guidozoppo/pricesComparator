@@ -5,3 +5,4 @@ archivos/
 temp/
 .vercel
 .env*
+buildSteps.txt
