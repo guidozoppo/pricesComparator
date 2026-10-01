@@ -1,7 +1,4 @@
-import {
-    normalizarArticulo,
-    convertirPrecio
-} from "./utils.js";
+import { normalizarArticulo, convertirPrecio } from "./utils.js";
 
 const MULTIPLICADOR = 2;
 
@@ -43,11 +40,9 @@ function comparar(datosPDF, datosExcel) {
         } else {
             precioCalculado = precioPDF * MULTIPLICADOR;
             diferencia = precioCalculado - precioExcel;
+            const porcentaje = ((precioCalculado - (precioExcel)) / (precioExcel)) * 100;
 
-            if (
-                diferencia / 100 < 1000 &&
-                diferencia / 100 > -1000
-            ) {
+            if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
                 estado = "OK";
                 ok++;
             } else {
@@ -57,27 +52,27 @@ function comparar(datosPDF, datosExcel) {
         }
 
         resultados.push({
-            "Articulo": articuloOriginal,
-            "Nombre": descripcion,
-            "Precio PDF sin IVA":
+            "articulo": articuloOriginal,
+            "nombre": descripcion,
+            "precioProveedor":
                 precioPDF !== undefined
                     ? precioPDF / 100
                     : "",
-            "Precio calculado (x2)":
+            "precioCalculado":
                 precioCalculado !== null
                     ? precioCalculado / 100
                     : "",
-            "Precio para la venta":
+            "precioVenta":
                 precioExcel !== null
                     ? precioExcel / 100
                     : "",
-            "Diferencia":
+            "diferencia":
                 diferencia !== null
                     ? diferencia / 100
                     : "",
             "Veces en PDF":
                 datosPDF.ocurrencias.get(articulo) || 0,
-            "Estado": estado
+            "estado": estado
         });
     }
 

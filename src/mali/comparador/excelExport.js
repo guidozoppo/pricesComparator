@@ -1,12 +1,11 @@
 import * as XLSX from "xlsx";
 
 export function exportarExcel(resultados) {
-
     const datosExcel = resultados.map(resultado => ({
         "ARTICULO": resultado.articulo,
         "NOMBRE": resultado.nombre,
         "PRECIO PROVEEDOR": resultado.precioProveedor,
-        "PRECIO NUEVO": resultado.precioCalculado,
+        "PRECIO NUEVO (x1.21 + x1.5)": resultado.precioCalculado,
         "PRECIO VIEJO": resultado.precioVenta,
         "DIFERENCIA": resultado.diferencia,
         "ESTADO": resultado.estado
@@ -16,7 +15,6 @@ export function exportarExcel(resultados) {
 
     // Agregar filtro a los encabezados
     if (datosExcel.length > 0) {
-
         const ultimaFila = datosExcel.length + 1;
         worksheet["!autofilter"] = { ref: `A1:G${ultimaFila}` };
     }

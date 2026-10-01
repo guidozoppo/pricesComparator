@@ -61,9 +61,8 @@ function limpiarTextoPDF(texto) {
         .replace(/\n{2,}/g, "\n");
 }
 
-export {
-    normalizarArticulo,
-    convertirPrecio,
-    formatearPrecioCentavos,
-    limpiarTextoPDF
-};
+function redondearPrecio(valor) {
+    return Math.round((valor + Number.EPSILON) * 100) / 100;
+}
+
+export { normalizarArticulo, convertirPrecio, formatearPrecioCentavos, limpiarTextoPDF, redondearPrecio };

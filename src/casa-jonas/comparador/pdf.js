@@ -1,9 +1,6 @@
 import * as pdfjsLib from "pdfjs-dist";
 
-import {
-    normalizarArticulo,
-    convertirPrecio
-} from "./utils.js";
+import { normalizarArticulo, convertirPrecio } from "./utils.js";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
     "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -24,8 +21,7 @@ async function obtenerTextoPDF(pdfFile) {
 
         const content = await page.getTextContent();
 
-        const items = content.items
-            .filter((item) => item.str && item.str.trim().length > 0);
+        const items = content.items.filter((item) => item.str && item.str.trim().length > 0);
 
         const lineas = [];
 
@@ -50,16 +46,15 @@ async function obtenerTextoPDF(pdfFile) {
 
         lineas.sort((a, b) => b.posicionY - a.posicionY);
 
-        const textoPagina = lineas
-            .map((linea) => {
-                linea.items.sort(
-                    (a, b) => a.transform[4] - b.transform[4]
-                );
+        const textoPagina = lineas.map((linea) => {
+            linea.items.sort(
+                (a, b) => a.transform[4] - b.transform[4]
+            );
 
-                return linea.items
-                    .map((item) => item.str.trim())
-                    .join(" ");
-            })
+            return linea.items
+                .map((item) => item.str.trim())
+                .join(" ");
+        })
             .join("\n");
 
         textoCompleto += textoPagina + "\n";
@@ -69,8 +64,6 @@ async function obtenerTextoPDF(pdfFile) {
 }
 
 async function leerPDF(articulosExcel, pdfFile) {
-    console.log(`\nLeyendo PDF: ${pdfFile.name}`);
-
     const texto = await obtenerTextoPDF(pdfFile);
 
     const lineas = texto
@@ -79,9 +72,7 @@ async function leerPDF(articulosExcel, pdfFile) {
         .filter((linea) => linea.length > 0);
 
     const preciosPDF = new Map();
-
     const ocurrencias = new Map();
-
     const descripcionesPDF = new Map();
 
     for (const articuloOriginal of articulosExcel) {
@@ -135,25 +126,12 @@ async function leerPDF(articulosExcel, pdfFile) {
             continue;
         }
 
-        preciosPDF.set(
-            articulo,
-            preciosEncontrados[0]
-        );
+        preciosPDF.set(articulo, preciosEncontrados[0]);
 
-        ocurrencias.set(
-            articulo,
-            lineasCoincidentes.length
-        );
+        ocurrencias.set(articulo, lineasCoincidentes.length);
     }
 
-    return {
-        preciosPDF,
-        ocurrencias,
-        descripcionesPDF
-    };
+    return { preciosPDF, ocurrencias, descripcionesPDF };
 }
 
-export {
-    obtenerTextoPDF,
-    leerPDF
-};
+export { obtenerTextoPDF, leerPDF };

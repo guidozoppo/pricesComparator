@@ -2,7 +2,6 @@ export function normalizarCodigo(codigo) {
     if (codigo === null || codigo === undefined) {
         return "";
     }
-
     return String(codigo).trim().toUpperCase();
 }
 
