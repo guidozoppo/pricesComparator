@@ -1,14 +1,16 @@
 //Si la variacion porcentual es +- del 5% está ok.
 export const PORCENTAJE_DIF_OK = 5;
 
-export const MULTIPLICADOR_CASA_JONAS = 2;
 export const MULTIPLICADOR_IVA = 1.21;
+export const MULTIPLICADOR_CASA_JONAS = 2;
 export const MULTIPLICADOR_TPA = 1.6;
 export const MULTIPLICADOR_MALI = 1.5;
 export const MULTIPLICADOR_PERFUMERIA_DEFAULT = 1.4;
 export const MULTIPLICADOR_PERFUMERIA_ALGODON = 1.3;
 export const MULTIPLICADOR_MURRAY = 1.6;
 export const MULTIPLICADOR_MURRAY_RESTA = 0.68;
+export const MULTIPLICADOR_TRANQUERA_RESTA = 0.9;
+export const MULTIPLICADOR_TRANQUERA = 1.5;
 
 export const COLUMNA_ARTICULO = 'ARTICULO';
 export const COLUMNA_NOMBRE = 'NOMBRE';
