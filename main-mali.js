@@ -44,16 +44,11 @@ function ocultarMensaje() {
 
 compararBtn.addEventListener("click",
     async () => {
-
         const excelProveedorFile = excelProveedorInput.files[0];
         const excelNegocioFile = excelNegocioInput.files[0];
 
-
         if (!excelProveedorFile || !excelNegocioFile) {
-            mostrarMensaje(
-                "Seleccioná el Excel del proveedor y el Excel del negocio.",
-                "error"
-            );
+            mostrarMensaje("Seleccioná el Excel del proveedor y el Excel del negocio.", "error");
             return;
         }
 

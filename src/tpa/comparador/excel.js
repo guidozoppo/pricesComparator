@@ -7,13 +7,10 @@ export async function leerExcelProveedor(excelFile) {
     }
 
     const arrayBuffer = await excelFile.arrayBuffer();
-
     const workbook = XLSX.read(arrayBuffer, { type: "array" });
-
     const articulosProveedor = new Map();
 
     for (const nombreHoja of workbook.SheetNames) {
-
         const worksheet = workbook.Sheets[nombreHoja];
         const filas = XLSX.utils.sheet_to_json(
             worksheet,
@@ -37,7 +34,6 @@ export async function leerExcelProveedor(excelFile) {
         const filaInicioDatos = columnas.filaEncabezados + 1;
 
         for (let i = filaInicioDatos; i < filas.length; i++) {
-
             const fila = filas[i];
             const codigo = normalizarCodigo(fila[columnas.codigo]);
 
@@ -65,7 +61,6 @@ export async function leerExcelNegocio(excelFile) {
     const arrayBuffer = await excelFile.arrayBuffer();
     const workbook = XLSX.read(arrayBuffer, { type: "array" });
 
-
     if (workbook.SheetNames.length === 0) {
         throw new Error("El archivo del negocio no contiene ninguna hoja.");
     }
@@ -92,11 +87,9 @@ export async function leerExcelNegocio(excelFile) {
     }
 
     const articulosNegocio = [];
-
     const filaInicioDatos = columnas.filaEncabezados + 1;
 
     for (let i = filaInicioDatos; i < filas.length; i++) {
-
         const fila = filas[i];
         const articulo = normalizarCodigo(fila[columnas.articulo]);
 
@@ -105,17 +98,14 @@ export async function leerExcelNegocio(excelFile) {
         }
 
         const nombre = String(fila[columnas.nombre] ?? "").trim();
-
         const precioFinal = convertirPrecio(fila[columnas.precioFinal]);
 
         articulosNegocio.push({ articulo, nombre, precioFinal });
     }
-
     return articulosNegocio;
 }
 
 function buscarColumnasNegocio(filas) {
-
     for (let numeroFila = 0; numeroFila < filas.length; numeroFila++) {
         const fila = filas[numeroFila];
 
@@ -124,7 +114,6 @@ function buscarColumnasNegocio(filas) {
         let columnaPrecioFinal = -1;
 
         for (let numeroColumna = 0; numeroColumna < fila.length; numeroColumna++) {
-
             const encabezado = normalizarEncabezado(fila[numeroColumna]);
 
             if (encabezado === "ARTICULO") {
@@ -159,16 +148,13 @@ function buscarColumnasNegocio(filas) {
 }
 
 function buscarColumnasProveedor(filas) {
-
     for (let numeroFila = 0; numeroFila < filas.length; numeroFila++) {
-
         const fila = filas[numeroFila];
 
         let columnaCodigo = -1;
         let columnaPrecio = -1;
 
         for (let numeroColumna = 0; numeroColumna < fila.length; numeroColumna++) {
-
             const encabezado = normalizarEncabezado(fila[numeroColumna]);
 
             if (esEncabezadoCodigo(encabezado)) {
@@ -198,7 +184,6 @@ function buscarColumnasProveedor(filas) {
 
 
 function esEncabezadoCodigo(encabezado) {
-
     return [
         "CODIGO",
         "COD°",
@@ -208,7 +193,6 @@ function esEncabezadoCodigo(encabezado) {
 
 
 function esEncabezadoPrecio(encabezado) {
-
     return [
         "PRECIO",
         "PRECIO UNITARIO"

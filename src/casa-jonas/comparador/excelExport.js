@@ -1,95 +1,58 @@
 import * as XLSX from "xlsx";
 
-function generarExcel(resultados, resumen) {
-    const workbook = XLSX.utils.book_new();
+export function generarExcel(resultados) {
+    const datosExcel = resultados.map(resultado => ({
+        "ARTICULO": resultado.articulo,
+        "NOMBRE": resultado.nombre,
+        "PRECIO PROVEEDOR": resultado.precioProveedor,
+        "PRECIO NUEVO (x2)": resultado.precioCalculado,
+        "PRECIO VIEJO": resultado.precioVenta,
+        "DIFERENCIA": resultado.diferencia,
+        "ESTADO": resultado.estado
+    }));
 
-    // ============================================================
-    // HOJA DE RESULTADOS
-    // ============================================================
+    const worksheet = XLSX.utils.json_to_sheet(datosExcel);
 
-    const hojaResultados = XLSX.utils.json_to_sheet(resultados);
+    // Agregar filtro a los encabezados
+    if (datosExcel.length > 0) {
 
-    // Filtros automáticos en los encabezados
-    hojaResultados["!autofilter"] = {
-        ref: hojaResultados["!ref"]
-    };
+        const ultimaFila = datosExcel.length + 1;
+        worksheet["!autofilter"] = { ref: `A1:G${ultimaFila}` };
+    }
 
-    // Ancho de las columnas
-    hojaResultados["!cols"] = [
-        { wch: 16 },
-        { wch: 60 },
-        { wch: 20 },
-        { wch: 23 },
-        { wch: 20 },
+    // Ancho de columnas
+    worksheet["!cols"] = [
         { wch: 15 },
+        { wch: 45 },
+        { wch: 18 },
+        { wch: 18 },
+        { wch: 22 },
         { wch: 15 },
-        { wch: 25 }
+        { wch: 32 }
     ];
+
+    // Formato numérico para precios
+    for (let fila = 2; fila <= datosExcel.length + 1; fila++) {
+        const columnasNumericas = ["C", "D", "E", "F"];
+
+        for (const columna of columnasNumericas) {
+            const celda = worksheet[`${columna}${fila}`];
+
+            if (celda && typeof celda.v === "number") {
+                celda.z = "#,##0.00";
+            }
+        }
+    }
+
+    const workbook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(
         workbook,
-        hojaResultados,
+        worksheet,
         "Comparación"
     );
 
-    // ============================================================
-    // HOJA DE RESUMEN
-    // ============================================================
+    const fecha = new Date().toISOString().split("T")[0];
 
-    const datosResumen = Object.entries(resumen).map(
-        ([concepto, cantidad]) => ({
-            "Concepto": concepto,
-            "Cantidad": cantidad
-        })
-    );
-
-    const hojaResumen = XLSX.utils.json_to_sheet(
-        datosResumen
-    );
-
-    hojaResumen["!cols"] = [
-        { wch: 30 },
-        { wch: 15 }
-    ];
-
-    XLSX.utils.book_append_sheet(
-        workbook,
-        hojaResumen,
-        "Resumen"
-    );
-
-    // ============================================================
-    // GENERAR ARCHIVO
-    // ============================================================
-
-    const contenido = XLSX.write(workbook, {
-        bookType: "xlsx",
-        type: "array"
-    });
-
-    const blob = new Blob(
-        [contenido],
-        {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        }
-    );
-
-    const url = URL.createObjectURL(blob);
-
-    const enlace = document.createElement("a");
-
-    enlace.href = url;
-    enlace.download = "resultado-comparacion.xlsx";
-
-    document.body.appendChild(enlace);
-    enlace.click();
-    enlace.remove();
-
-    URL.revokeObjectURL(url);
-
-    console.log("Resultado generado: resultado-comparacion.xlsx");
+    XLSX.writeFile(workbook, `comparacion-casa-jonas-${fecha}.xlsx`);
 }
-
-export {
-    generarExcel
-};

@@ -1,12 +1,8 @@
 import * as XLSX from "xlsx";
 
-import {
-    normalizarArticulo
-} from "./utils.js";
+import { normalizarArticulo } from "./utils.js";
 
 async function leerExcel(excelFile) {
-    console.log(`Leyendo Excel: ${excelFile.name}`);
-
     const arrayBuffer = await excelFile.arrayBuffer();
 
     const workbook = XLSX.read(arrayBuffer, {
@@ -42,15 +38,11 @@ async function leerExcel(excelFile) {
     );
 
     if (!columnaArticulo) {
-        throw new Error(
-            'No se encontró la columna "Articulo" en el Excel.'
-        );
+        throw new Error('No se encontró la columna "Articulo" en el Excel.');
     }
 
     if (!columnaPrecio) {
-        throw new Error(
-            'No se encontró la columna "Precio Final" (o "Precio") en el Excel.'
-        );
+        throw new Error('No se encontró la columna "Precio Final" (o "Precio") en el Excel.');
     }
 
     return {
@@ -60,6 +52,4 @@ async function leerExcel(excelFile) {
     };
 }
 
-export {
-    leerExcel
-};
+export { leerExcel };

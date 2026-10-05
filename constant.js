@@ -1,0 +1,22 @@
+//Si la variacion porcentual es +- del 5% está ok.
+export const PORCENTAJE_DIF_OK = 5;
+
+export const MULTIPLICADOR_CASA_JONAS = 2;
+export const MULTIPLICADOR_IVA = 1.21;
+export const MULTIPLICADOR_TPA = 1.6;
+export const MULTIPLICADOR_MALI = 1.5;
+export const MULTIPLICADOR_PERFUMERIA_DEFAULT = 1.4;
+export const MULTIPLICADOR_PERFUMERIA_ALGODON = 1.3;
+
+export const COLUMNA_ARTICULO = 'ARTICULO';
+export const COLUMNA_NOMBRE = 'NOMBRE';
+export const COLUMNA_PRECIO_PROVEEDOR = 'PRECIO PROVEEDOR';
+export const COLUMNA_PRECIO_NUEVO = 'PRECIO NUEVO';
+export const COLUMNA_PRECIO_VIEJO = 'PRECIO VIEJO';
+export const COLUMNA_DIFERENCIA = 'DIFERENCIA';
+export const COLUMNA_ESTADO = 'ESTADO';
+
+export const ESTADO_OK = 'OK';
+export const ESTADO_DIFERENCIA = 'DIFERENCIA';
+export const ESTADO_NO_ENCONTRADO_PDF = 'NO ENCONTRADO PDF';
+export const ESTADO_PRECIO_EXCEL_INVALIDO = 'PRECIO EXCEL INVALIDO';

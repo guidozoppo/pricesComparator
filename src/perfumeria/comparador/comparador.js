@@ -1,3 +1,4 @@
+import { redondearPrecio } from "../../casa-jonas/comparador/utils.js";
 import {
     normalizarArticulo,
     convertirPrecio
@@ -8,10 +9,6 @@ const MULTIPLICADOR_HOJA2 = 1.3;
 
 //Si la variacion porcentual es +- del 5% está ok.
 const PORCENTAJE_DIF_OK = 5;
-
-function redondearPrecio(valor) {
-    return Math.round((valor + Number.EPSILON) * 100) / 100;
-}
 
 function comparar(datosPDF, datosExcel) {
     const resultados = [];
@@ -51,9 +48,9 @@ function comparar(datosPDF, datosExcel) {
                 precioCalculado = precioPDF * MULTIPLICADOR_HOJA2;
             }
 
-            diferencia = redondearPrecio((precioCalculado - precioExcel));
+            diferencia = redondearPrecio(precioCalculado - precioExcel);
 
-            const porcentaje = ((precioCalculado - (precioExcel)) / (precioExcel)) * 100
+            const porcentaje = ((precioCalculado - (precioExcel)) / (precioExcel)) * 100;
 
             if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
                 estado = "OK";

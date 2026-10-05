@@ -48,10 +48,7 @@ boton.addEventListener("click", async () => {
     const excelFile = excelInput.files[0];
 
     if (!pdfFile || !excelFile) {
-        mostrarMensaje(
-            "Seleccioná el PDF del proveedor y el Excel del negocio.",
-            "error"
-        );
+        mostrarMensaje("Seleccioná el PDF del proveedor y el Excel del negocio.", "error");
         return;
     }
 
@@ -67,37 +64,14 @@ boton.addEventListener("click", async () => {
             fila => fila[resultadoExcel.columnaArticulo]
         );
 
-        const resultadoPDF = await leerPDF(
-            articulosExcel,
-            pdfFile
-        );
+        const resultadoPDF = await leerPDF(articulosExcel, pdfFile);
+        const resultadoComparacion = comparar(resultadoPDF, resultadoExcel);
 
-        const resultadoComparacion = comparar(
-            resultadoPDF,
-            resultadoExcel
-        );
-
-        console.log("========================================");
-        console.log("RESULTADO DE COMPARACIÓN");
-        console.log("========================================");
-
-        console.log("Resumen:", resultadoComparacion.resumen);
-
-        console.log("Resultados:", resultadoComparacion.resultados);
-
-        console.log("========================================");
-
-        generarExcel(
-            resultadoComparacion.resultados,
-            resultadoComparacion.resumen
-        );
+        generarExcel(resultadoComparacion.resultados, resultadoComparacion.resumen);
+        mostrarMensaje("Comparación realizada correctamente. El archivo se descargó automáticamente.", "success");
     } catch (error) {
         console.error(error);
-
-        mostrarMensaje(
-            `Error al leer el PDF: ${error.message}`,
-            "error"
-        );
+        mostrarMensaje(`Error al leer el PDF: ${error.message}`, "error");
     } finally {
         boton.disabled = false;
         boton.classList.remove("btn--loading");
