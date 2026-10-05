@@ -16,11 +16,11 @@
         <div class="header__inner">
             <h1 class="header__title">Comparador de Precios</h1>
             <nav class="nav">
-                <a class="nav__link nav__link--active" href="#">Casa Jonas</a>
+                <a class="nav__link nav__link--active" href="./casa-jonas.html">Casa Jonas</a>
                 <a class="nav__link nav__link--active" href="./tpa.html">TPA</a>
                 <a class="nav__link nav__link--active" href="./mali.html">Mali</a>
                 <a class="nav__link nav__link--active" href="./perfumeria.html">Perfumeria</a>
-                <a class="nav__link nav__link--active" href="./murray.html">Murray</a>
+                <a class="nav__link nav__link--active" href="#">Murray</a>
             </nav>
         </div>
     </header>
@@ -28,17 +28,17 @@
     <main class="main">
         <section class="card">
             <div class="card__header">
-                <h1>CASA JONAS</h1>
+                <h1>MURRAY</h1>
                 <h2 class="card__title">Subir archivos</h2>
                 <p class="card__subtitle">
-                    Cargá el PDF del proveedor y el Excel con los precios del negocio para generar la comparación.
+                    Cargá el Excel del proveedor y el Excel con los precios del negocio para generar la comparación.
                 </p>
             </div>
 
             <div class="upload-grid">
                 <div class="upload-field">
-                    <label class="upload-field__label" for="pdfProveedor">PDF del proveedor</label>
-                    <label class="upload-box" for="pdfProveedor">
+                    <label class="upload-field__label" for="excelProveedor">Excel del proveedor</label>
+                    <label class="upload-box" for="excelProveedor">
                         <span class="upload-box__icon" aria-hidden="true">
                             <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
                                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"
@@ -47,11 +47,13 @@
                                     stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                         </span>
-                        <span class="upload-box__text">Seleccioná un archivo PDF</span>
-                        <span class="upload-box__hint">Formato .pdf</span>
-                        <span class="upload-box__filename" id="pdfFileName">Ningún archivo seleccionado</span>
+                        <span class="upload-box__text">Seleccioná un archivo Excel</span>
+                        <span class="upload-box__hint">Formato .xls, .xlsx</span>
+                        <span class="upload-box__filename" id="excelProveedorFileName">Ningún archivo
+                            seleccionado</span>
                     </label>
-                    <input class="upload-field__input" type="file" name="pdfProveedor" id="pdfProveedor" accept=".pdf">
+                    <input class="upload-field__input" type="file" name="excelProveedor" id="excelProveedor"
+                        accept=".xls,.xlsx">
                 </div>
 
                 <div class="upload-field">
@@ -67,7 +69,7 @@
                         </span>
                         <span class="upload-box__text">Seleccioná un archivo Excel</span>
                         <span class="upload-box__hint">Formatos .xls, .xlsx</span>
-                        <span class="upload-box__filename" id="excelFileName">Ningún archivo seleccionado</span>
+                        <span class="upload-box__filename" id="excelNegocioFileName">Ningún archivo seleccionado</span>
                     </label>
                     <input class="upload-field__input" type="file" name="excelNegocio" id="excelNegocio"
                         accept=".xls,.xlsx">
@@ -85,6 +87,6 @@
         </section>
     </main>
 </body>
-<script type="module" src="../../main-casa-jonas.js"></script>
+<script type="module" src="../../main-murray.js"></script>
 
 </html>
