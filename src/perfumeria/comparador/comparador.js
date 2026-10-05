@@ -1,14 +1,9 @@
+import { ESTADO_DIFERENCIA, ESTADO_OK, MULTIPLICADOR_PERFUMERIA_ALGODON, MULTIPLICADOR_PERFUMERIA_DEFAULT, PORCENTAJE_DIF_OK } from "../../../constant.js";
 import { redondearPrecio } from "../../casa-jonas/comparador/utils.js";
 import {
     normalizarArticulo,
     convertirPrecio
 } from "./utils.js";
-
-const MULTIPLICADOR_HOJA1 = 1.4;
-const MULTIPLICADOR_HOJA2 = 1.3;
-
-//Si la variacion porcentual es +- del 5% está ok.
-const PORCENTAJE_DIF_OK = 5;
 
 function comparar(datosPDF, datosExcel) {
     const resultados = [];
@@ -43,9 +38,9 @@ function comparar(datosPDF, datosExcel) {
             preciosInvalidos++;
         } else {
             if (hoja === 'Hoja1') {
-                precioCalculado = precioPDF * MULTIPLICADOR_HOJA1;
+                precioCalculado = precioPDF * MULTIPLICADOR_PERFUMERIA_DEFAULT;
             } else if (hoja === 'Hoja2') {
-                precioCalculado = precioPDF * MULTIPLICADOR_HOJA2;
+                precioCalculado = precioPDF * MULTIPLICADOR_PERFUMERIA_ALGODON;
             }
 
             diferencia = redondearPrecio(precioCalculado - precioExcel);
@@ -53,9 +48,9 @@ function comparar(datosPDF, datosExcel) {
             const porcentaje = ((precioCalculado - (precioExcel)) / (precioExcel)) * 100;
 
             if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
-                estado = "OK";
+                estado = ESTADO_OK;
             } else {
-                estado = "DIFERENCIA";
+                estado = ESTADO_DIFERENCIA;
             }
         }
 

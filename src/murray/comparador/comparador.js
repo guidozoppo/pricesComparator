@@ -1,9 +1,4 @@
-const MULTIPLICADOR = 1.6;
-const MULTIPLICADOR_RESTA = 0.68;
-const MULTIPLICADOR_IVA = 1.21;
-
-//Si la variacion porcentual es +- del 5% está ok.
-const PORCENTAJE_DIF_OK = 5;
+import { ESTADO_DIFERENCIA, ESTADO_OK, ESTADO_SIN_PRECIO_PROVEEDOR, MULTIPLICADOR_IVA, MULTIPLICADOR_MURRAY, MULTIPLICADOR_MURRAY_RESTA, PORCENTAJE_DIF_OK } from "../../../constant";
 
 function redondearPrecio(valor) {
     return Math.round((valor + Number.EPSILON) * 100) / 100;
@@ -69,7 +64,7 @@ export function comparar(articulosProveedor, articulosNegocio) {
             continue;
         }
 
-        const precioParcial = precioProveedor * MULTIPLICADOR_IVA * MULTIPLICADOR_RESTA * MULTIPLICADOR;
+        const precioParcial = precioProveedor * MULTIPLICADOR_IVA * MULTIPLICADOR_MURRAY_RESTA * MULTIPLICADOR_MURRAY;
         let precioCalculado = redondearPrecio(precioParcial);
         let estado;
 
@@ -81,9 +76,9 @@ export function comparar(articulosProveedor, articulosNegocio) {
         const porcentaje = ((precioCalculado - precioFinal) / precioFinal) * 100;
 
         if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
-            estado = "OK";
+            estado = ESTADO_OK;
         } else {
-            estado = "DIFERENCIA";
+            estado = ESTADO_DIFERENCIA;
         }
 
         resultados.push({
