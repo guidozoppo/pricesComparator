@@ -10,7 +10,9 @@ export default defineConfig({
                 tpa: resolve(__dirname, 'src/front/tpa.html'),
                 mali: resolve(__dirname, 'src/front/mali.html'),
                 perfumeria: resolve(__dirname, 'src/front/perfumeria.html'),
-                murray: resolve(__dirname, 'src/front/murray.html')
+                murray: resolve(__dirname, 'src/front/murray.html'),
+                laTranquera: resolve(__dirname, 'src/front/laTranquera.html'),
+                rigolleau: resolve(__dirname, 'src/front/rigolleau.html'),
             }
         }
     }
