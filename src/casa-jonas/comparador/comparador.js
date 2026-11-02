@@ -1,6 +1,5 @@
+import { ESTADO_DIFERENCIA, ESTADO_NO_ENCONTRADO_PDF, ESTADO_OK, ESTADO_PRECIO_EXCEL_INVALIDO, MULTIPLICADOR_CASA_JONAS, PORCENTAJE_DIF_OK } from "../../../constant.js";
 import { normalizarArticulo, convertirPrecio } from "./utils.js";
-
-const MULTIPLICADOR = 2;
 
 function comparar(datosPDF, datosExcel) {
     const resultados = [];
@@ -32,21 +31,21 @@ function comparar(datosPDF, datosExcel) {
         let estado = "";
 
         if (precioPDF === undefined) {
-            estado = "NO ENCONTRADO EN PDF";
+            estado = ESTADO_NO_ENCONTRADO_PDF;
             noEncontrados++;
         } else if (precioExcel === null) {
-            estado = "PRECIO EXCEL INVÁLIDO";
+            estado = ESTADO_PRECIO_EXCEL_INVALIDO;
             preciosInvalidos++;
         } else {
-            precioCalculado = precioPDF * MULTIPLICADOR;
+            precioCalculado = precioPDF * MULTIPLICADOR_CASA_JONAS;
             diferencia = precioCalculado - precioExcel;
             const porcentaje = ((precioCalculado - (precioExcel)) / (precioExcel)) * 100;
 
             if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
-                estado = "OK";
+                estado = ESTADO_OK;
                 ok++;
             } else {
-                estado = "DIFERENCIA";
+                estado = ESTADO_DIFERENCIA;
                 diferencias++;
             }
         }
