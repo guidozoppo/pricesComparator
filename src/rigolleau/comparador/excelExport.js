@@ -54,5 +54,5 @@ export function generarExcel(resultados) {
 
     const fecha = new Date().toISOString().split("T")[0];
 
-    XLSX.writeFile(workbook, `comparacion-perfumeria-${fecha}.xlsx`);
+    XLSX.writeFile(workbook, `comparacion-rigolleau-${fecha}.xlsx`);
 }
