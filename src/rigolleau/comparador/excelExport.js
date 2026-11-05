@@ -5,7 +5,7 @@ export function generarExcel(resultados) {
         "ARTICULO": resultado.articulo,
         "NOMBRE": resultado.nombre,
         "PRECIO PROVEEDOR": resultado.precioProveedor,
-        "PRECIO NUEVO (x1.4 ó x1.3)": resultado.precioCalculado,
+        "PRECIO NUEVO (x1.21 + x1.6)": resultado.precioCalculado,
         "PRECIO VIEJO": resultado.precioVenta,
         "DIFERENCIA": resultado.diferencia,
         "ESTADO": resultado.estado

@@ -1,9 +1,5 @@
 import { redondearPrecio } from "../../casa-jonas/comparador/utils";
-
-const MULTIPLICADOR = 1.6;
-
-//Si la variacion porcentual es +- del 5% está ok.
-const PORCENTAJE_DIF_OK = 5;
+import { PORCENTAJE_DIF_OK, MULTIPLICADOR_TPA, ESTADO_OK, ESTADO_DIFERENCIA } from "../../../constant.js";
 
 export function comparar(articulosProveedor, articulosNegocio) {
     const resultados = [];
@@ -61,16 +57,16 @@ export function comparar(articulosProveedor, articulosNegocio) {
             continue;
         }
 
-        const precioCalculado = redondearPrecio(precioProveedor * MULTIPLICADOR);
+        const precioCalculado = redondearPrecio(precioProveedor * MULTIPLICADOR_TPA);
 
         const diferencia = redondearPrecio(precioCalculado - precioFinal);
         let estado;
         const porcentaje = ((precioCalculado - precioFinal) / precioFinal) * 100
 
         if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
-            estado = "OK";
+            estado = ESTADO_OK;
         } else {
-            estado = "DIFERENCIA";
+            estado = ESTADO_DIFERENCIA;
         }
 
         resultados.push({
