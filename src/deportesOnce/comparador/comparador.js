@@ -1,4 +1,4 @@
-import { ESTADO_DIFERENCIA, ESTADO_OK, MULTIPLICADOR_IVA, MULTIPLICADOR_RIGOLLEAU, PORCENTAJE_DIF_OK } from "../../../constant.js";
+import { ESTADO_DIFERENCIA, ESTADO_OK, MULTIPLICADOR_DEPORTES11, MULTIPLICADOR_IVA, PORCENTAJE_DIF_OK } from "../../../constant.js";
 import { redondearPrecio } from "../../casa-jonas/comparador/utils.js";
 import { convertirPrecio } from "./utils.js";
 
@@ -50,7 +50,7 @@ function comparar(datosPDF, datosExcel) {
             if (articulo === 'GD-BO6100') {
                 precioPDF = precioPDF / 100;
             }
-            precioCalculado = precioPDF * MULTIPLICADOR_IVA * MULTIPLICADOR_RIGOLLEAU;
+            precioCalculado = precioPDF * MULTIPLICADOR_IVA * MULTIPLICADOR_DEPORTES11;
             diferencia = redondearPrecio(precioCalculado - precioExcel);
 
             const porcentaje = ((precioCalculado - (precioExcel)) / (precioExcel)) * 100;
