@@ -1,4 +1,4 @@
-import { ESTADO_DIFERENCIA, ESTADO_OK, MULTIPLICADOR_IVA, MULTIPLICADOR_PERFUMERIA_ALGODON, MULTIPLICADOR_PERFUMERIA_DEFAULT, MULTIPLICADOR_RIGOLLEAU, PORCENTAJE_DIF_OK } from "../../../constant.js";
+import { ESTADO_DIFERENCIA, ESTADO_OK, MULTIPLICADOR_IVA, MULTIPLICADOR_RIGOLLEAU, PORCENTAJE_DIF_OK } from "../../../constant.js";
 import { redondearPrecio } from "../../casa-jonas/comparador/utils.js";
 import { normalizarArticulo, convertirPrecio } from "./utils.js";
 

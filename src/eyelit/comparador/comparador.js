@@ -1,0 +1,82 @@
+import { redondearPrecio } from "../../casa-jonas/comparador/utils";
+import { PORCENTAJE_DIF_OK, ESTADO_OK, ESTADO_DIFERENCIA, MULTIPLICADOR_EYELIT, MULTIPLICADOR_IVA } from "../../../constant.js";
+
+export function comparar(articulosProveedor, articulosNegocio) {
+    const resultados = [];
+
+    for (const articuloNegocio of articulosNegocio) {
+        const { articulo, nombre, precioFinal } = articuloNegocio;
+        const ocurrencias = articulosProveedor.get(articulo);
+
+        // El artículo no existe en el proveedor
+        if (!ocurrencias) {
+            resultados.push({
+                articulo,
+                nombre,
+                precioProveedor: null,
+                precioCalculado: null,
+                precioVenta: precioFinal,
+                diferencia: null,
+                estado: "NO SE ENCONTRÓ ARTICULO"
+            });
+
+            continue;
+        }
+
+        // El artículo aparece más de una vez
+        if (ocurrencias.length > 1) {
+            resultados.push({
+                articulo,
+                nombre,
+                precioProveedor: null,
+                precioCalculado: null,
+                precioVenta: precioFinal,
+                diferencia: null,
+                estado: `ARTICULO ENCONTRADO ${ocurrencias.length} VECES`
+            });
+
+            continue;
+        }
+
+        const articuloProveedor = ocurrencias[0];
+
+        const precioProveedor = articuloProveedor.precio;
+
+        // El artículo existe pero no tiene precio
+        if (precioProveedor === null) {
+
+            resultados.push({
+                articulo,
+                nombre,
+                precioProveedor: null,
+                precioCalculado: null,
+                precioVenta: precioFinal,
+                diferencia: null,
+                estado: "SIN PRECIO EN PROVEEDOR"
+            });
+            continue;
+        }
+
+        const precioCalculado = redondearPrecio((precioProveedor * MULTIPLICADOR_IVA) * MULTIPLICADOR_EYELIT);
+        const diferencia = redondearPrecio(precioCalculado - precioFinal);
+        let estado;
+        const porcentaje = ((precioCalculado - precioFinal) / precioFinal) * 100
+
+        if (Math.abs(porcentaje) <= PORCENTAJE_DIF_OK) {
+            estado = ESTADO_OK;
+        } else {
+            estado = ESTADO_DIFERENCIA;
+        }
+
+        resultados.push({
+            articulo,
+            nombre,
+            precioProveedor,
+            precioCalculado,
+            precioVenta: precioFinal,
+            diferencia,
+            estado
+        });
+    }
+    return resultados;
+}

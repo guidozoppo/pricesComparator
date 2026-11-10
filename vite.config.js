@@ -13,6 +13,10 @@ export default defineConfig({
                 murray: resolve(__dirname, 'src/front/murray.html'),
                 laTranquera: resolve(__dirname, 'src/front/laTranquera.html'),
                 rigolleau: resolve(__dirname, 'src/front/rigolleau.html'),
+                deportesOnce: resolve(__dirname, 'src/front/deportesOnce.html'),
+                chaqueño: resolve(__dirname, 'src/front/chaqueño.html'),
+                faguar: resolve(__dirname, 'src/front/faguar.html'),
+                eyelit: resolve(__dirname, 'src/front/eyelit.html')
             }
         }
     }
