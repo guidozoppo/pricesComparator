@@ -42,7 +42,7 @@ function comparar(datosPDF, datosExcel) {
         } else if (descripcion.includes("SIN STOCK") || precioPDF === 0) {
             estado = "SIN STOCK EN PROVEEDOR - SIN PRECIO";
         } else {
-            if (articulo === 'GD-BO6100') {
+            if (articulo === 'GD- BO6100') {
                 precioPDF = precioPDF / 100;
             }
             precioCalculado = precioPDF * MULTIPLICADOR_IVA * MULTIPLICADOR_DEPORTES11;
