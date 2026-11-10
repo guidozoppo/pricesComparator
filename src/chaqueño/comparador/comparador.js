@@ -1,4 +1,4 @@
-import { ESTADO_DIFERENCIA, ESTADO_OK, MULTIPLICADOR_IVA, MULTIPLICADOR_MALI, PORCENTAJE_DIF_OK } from "../../../constant";
+import { ESTADO_DIFERENCIA, ESTADO_OK, PORCENTAJE_DIF_OK, MULTIPLICADOR_CHAQUEÑO, MULTIPLICADOR_CHAQUEÑO_RESTA, MULTIPLICADOR_IVA } from "../../../constant";
 import { redondearPrecio } from "../../casa-jonas/comparador/utils";
 
 export function comparar(articulosProveedor, articulosNegocio) {
@@ -58,8 +58,8 @@ export function comparar(articulosProveedor, articulosNegocio) {
             continue;
         }
 
-        const precioParcial = precioProveedor * MULTIPLICADOR_IVA
-        const precioCalculado = redondearPrecio(precioParcial * MULTIPLICADOR_MALI);
+        const precioParcial = precioProveedor * MULTIPLICADOR_CHAQUEÑO_RESTA * MULTIPLICADOR_IVA * MULTIPLICADOR_CHAQUEÑO;
+        const precioCalculado = redondearPrecio(precioParcial);
 
         const diferencia = redondearPrecio((precioCalculado - precioFinal) / cantidad);
         let estado;

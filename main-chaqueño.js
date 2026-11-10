@@ -1,6 +1,6 @@
-import { leerExcelProveedor, leerExcelNegocio } from "./src/chaqueño1/comparador/excel.js";
-import { comparar } from "./src/chaqueño1/comparador/comparador.js";
-import { exportarExcel } from "./src/chaqueño1/comparador/excelExport.js";
+import { leerExcelProveedor, leerExcelNegocio } from "./src/chaqueño/comparador/excel.js";
+import { comparar } from "./src/chaqueño/comparador/comparador.js";
+import { exportarExcel } from "./src/chaqueño/comparador/excelExport.js";
 
 const excelProveedorInput = document.getElementById("excelProveedor");
 const excelNegocioInput = document.getElementById("excelNegocio");

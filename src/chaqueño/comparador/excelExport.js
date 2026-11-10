@@ -5,7 +5,7 @@ export function exportarExcel(resultados) {
         "ARTICULO": resultado.articulo,
         "NOMBRE": resultado.nombre,
         "PRECIO PROVEEDOR": resultado.precioProveedor,
-        "PRECIO NUEVO (x1.21 + x1.6)": resultado.precioCalculado,
+        "PRECIO NUEVO (x0.52 + x1.21 + x1.6)": resultado.precioCalculado,
         "PRECIO VIEJO": resultado.precioVenta,
         "DIFERENCIA": resultado.diferencia,
         "ESTADO": resultado.estado
@@ -53,5 +53,5 @@ export function exportarExcel(resultados) {
 
     const fecha = new Date().toISOString().split("T")[0];
 
-    XLSX.writeFile(workbook, `comparacion-chaqueño1-${fecha}.xlsx`);
+    XLSX.writeFile(workbook, `comparacion-chaqueño-${fecha}.xlsx`);
 }
