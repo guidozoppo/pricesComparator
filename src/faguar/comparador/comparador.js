@@ -1,5 +1,5 @@
-import { ESTADO_DIFERENCIA, ESTADO_NO_ENCONTRADO_PDF, ESTADO_OK, ESTADO_PRECIO_EXCEL_INVALIDO, MULTIPLICADOR_CASA_JONAS, PORCENTAJE_DIF_OK } from "../../../constant.js";
-import { normalizarArticulo, convertirPrecio } from "./utils.js";
+import { ESTADO_DIFERENCIA, ESTADO_NO_ENCONTRADO_PDF, ESTADO_OK, ESTADO_PRECIO_EXCEL_INVALIDO, MULTIPLICADOR_FAGUAR, MULTIPLICADOR_FAGUAR_2, MULTIPLICADOR_IVA, PORCENTAJE_DIF_OK } from "../../../constant.js";
+import { normalizarArticulo } from "./utils.js";
 
 function comparar(datosPDF, datosExcel) {
     const resultados = [];
@@ -28,7 +28,7 @@ function comparar(datosPDF, datosExcel) {
 
         const clave = `${articulo}|${talle}`;
         const registroPDF = indicePDF.get(clave);
-
+        console.log(articulo, clave, registroPDF)
         const precioExcel = convertirPrecio(
             fila[datosExcel.columnaPrecio]
         );
@@ -54,8 +54,12 @@ function comparar(datosPDF, datosExcel) {
             estado = ESTADO_PRECIO_EXCEL_INVALIDO;
             preciosInvalidos++;
         } else {
-            precioCalculado =
-                precioPDF * MULTIPLICADOR_CASA_JONAS;
+            if (descripcion.toUpperCase().includes("BUZO")) {
+                precioCalculado = precioPDF * MULTIPLICADOR_FAGUAR_2;
+            } else {
+                precioCalculado = precioPDF * MULTIPLICADOR_IVA * MULTIPLICADOR_FAGUAR;
+
+            }
 
             diferencia = precioCalculado - precioExcel;
 
@@ -144,6 +148,44 @@ function crearIndicePDF(datosPDF) {
     }
 
     return indice;
+}
+
+function convertirPrecio(valor) {
+    if (typeof valor === "number") {
+        return Math.round(valor * 100);
+    }
+
+    let texto = String(valor ?? "")
+        .trim()
+        .replace(/\$/g, "")
+        .replace(/\s/g, "");
+
+    if (!texto) return null;
+
+    // Tiene punto y coma
+    if (texto.includes(",") && texto.includes(".")) {
+        if (texto.lastIndexOf(",") > texto.lastIndexOf(".")) {
+            // Formato argentino: 19.939,50
+            texto = texto.replace(/\./g, "").replace(",", ".");
+        } else {
+            // Formato internacional: 19,939.50
+            texto = texto.replace(/,/g, "");
+        }
+    } else if (texto.includes(",")) {
+        // Coma decimal: 19939,50
+        texto = texto.replace(",", ".");
+    } else if (texto.includes(".")) {
+        // Punto de miles: 19.939
+        texto = texto.replace(/\./g, "");
+    }
+
+    const numero = Number(texto);
+
+    if (!Number.isFinite(numero)) {
+        return null;
+    }
+
+    return Math.round(numero * 100);
 }
 
 export {
