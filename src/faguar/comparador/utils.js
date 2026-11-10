@@ -1,5 +1,4 @@
 function normalizarArticulo(valor) {
-    //console.log(valor)
     return String(valor ?? "")
         .trim()
         .toUpperCase()

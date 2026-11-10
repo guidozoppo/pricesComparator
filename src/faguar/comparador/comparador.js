@@ -28,10 +28,7 @@ function comparar(datosPDF, datosExcel) {
 
         const clave = `${articulo}|${talle}`;
         const registroPDF = indicePDF.get(clave);
-        console.log(articulo, clave, registroPDF)
-        const precioExcel = convertirPrecio(
-            fila[datosExcel.columnaPrecio]
-        );
+        const precioExcel = convertirPrecio(fila[datosExcel.columnaPrecio]);
 
         const precioPDF = registroPDF?.precio;
 

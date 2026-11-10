@@ -25,11 +25,6 @@ function comparar(datosPDF, datosExcel) {
             )?.Nombre || "";
         }
 
-
-        /* if (articulo === "GD- 9819 A") {
-            console.log(articulo, descripcion, precioExcel, precioPDF)
-            console.log(datosPDF)
-        } */
         let precioCalculado = null;
         let diferencia = null;
         let estado = "";
