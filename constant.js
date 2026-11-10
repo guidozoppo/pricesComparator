@@ -16,6 +16,8 @@ export const MULTIPLICADOR_EYELIT = 1.6;
 export const MULTIPLICADOR_DEPORTES11 = 1.6;
 export const MULTIPLICADOR_CHAQUEÑO = 1.6;
 export const MULTIPLICADOR_CHAQUEÑO_RESTA = 0.52;
+export const MULTIPLICADOR_FAGUAR = 1.6;
+export const MULTIPLICADOR_FAGUAR_2 = 2;
 
 export const COLUMNA_ARTICULO = 'ARTICULO';
 export const COLUMNA_NOMBRE = 'NOMBRE';

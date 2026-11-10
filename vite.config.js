@@ -15,6 +15,7 @@ export default defineConfig({
                 rigolleau: resolve(__dirname, 'src/front/rigolleau.html'),
                 deportesOnce: resolve(__dirname, 'src/front/deportesOnce.html'),
                 chaqueño: resolve(__dirname, 'src/front/chaqueño.html'),
+                faguar: resolve(__dirname, 'src/front/faguar.html'),
                 eyelit: resolve(__dirname, 'src/front/eyelit.html')
             }
         }
