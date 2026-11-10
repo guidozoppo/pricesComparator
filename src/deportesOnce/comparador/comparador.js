@@ -43,9 +43,7 @@ function comparar(datosPDF, datosExcel) {
             estado = "SIN STOCK EN PROVEEDOR - SIN PRECIO";
         } else {
             if (articulo === 'GD- BO6100') {
-                console.log(precioPDF)
                 precioPDF = precioPDF / 100;
-                console.log(precioPDF)
             }
             precioCalculado = precioPDF * MULTIPLICADOR_IVA * MULTIPLICADOR_DEPORTES11;
             diferencia = redondearPrecio(precioCalculado - precioExcel);
